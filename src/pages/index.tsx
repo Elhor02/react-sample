@@ -11,7 +11,7 @@ export function IndexPage() {
   const { reload, pending } = usePageData({
     disabled: false,
     dataCached: true,
-    expireTime: 5000,
+    expireTime: 4000,
     apiMethod: getIndexPageData,
     apiData: {
       // ... your API data
