@@ -1,9 +1,7 @@
 name: automate-react-s3
 
 on:
- push:
-   branches:
-     - main
+ workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,16 +12,13 @@ jobs:
       - name: setupnode
         uses: actions/setup-node@v2
 
-
       - run: yarn install
-      - run: yarn build
-
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: deploy static site to s3 bucket
-        run: aws s3 sync build/ s3://react-appp101
+      
+      - run: jest --coverage 
+      
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v2.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+     
