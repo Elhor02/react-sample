@@ -12,7 +12,7 @@ jobs:
       - name: setupnode
         uses: actions/setup-node@v2
         
-      - run: yarn install --save-dev jest
+      - run: yarn add jest --dev
 
       - run: yarn install
       
